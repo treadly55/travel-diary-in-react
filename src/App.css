@@ -122,7 +122,7 @@ fieldset {
   align-items: center;
 }
 
-.startButton {
+.mainButton {
     margin: 50px 0;
     padding: 10px 20px;
     font-weight: 800;
@@ -137,7 +137,7 @@ fieldset {
     width: 290px;
 }
 
-.startButton:hover {
+.mainButton:hover {
   background-color: #007bff;
 }
 
@@ -196,28 +196,7 @@ fieldset {
 
 .selected {
   border-color: green;
-  border-width: 3px;
-}
-
-.AnswerBtn {
-  background-color: lightslategray;
-  color: white;
-  font-size: 1rem;
-  padding: 10px;
-  margin: 50px 0;
-}
-
-.HideResults {
-  display: none;
-}
-
-.ShowResults {
-  border: 5px solid green;
-  color: red;
-}
-
-.ReHideResults {
-  color: plum;
+  border-width: 1px;
 }
 
 .quiz-finish-box {
@@ -231,7 +210,6 @@ fieldset {
 .quiz-finish-box button {
   margin-top: 8px; 
 }
-
 
 .StopRetry {
   display: none;

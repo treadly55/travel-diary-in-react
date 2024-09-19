@@ -27,7 +27,7 @@ export default function App() {
   const scoreCalculatedRef = useRef(false)
   const bottomRef = useRef(null)
   const allQuestionsAnswered = quizData.every(item => selectedAnswers[item.id])
-  const testaroo = quizData.length > 0 && quizData.every(item => selectedAnswers[item.id])
+  const showAnswerButtonCondStyle = quizData.length > 0 && quizData.every(item => selectedAnswers[item.id])
 
   // REMOVED: useEffect hook that was calling fetchQuizData
 
@@ -133,7 +133,8 @@ export default function App() {
     }
   }, [showResults, scrollToBottom])
 
-  
+  const selectedCategory = categories.find(category => category.id === categoryId);
+
   const QuizPageLanding = () => (  
     <div>
       <div className="MegaIcon">🤯</div>
@@ -197,14 +198,16 @@ export default function App() {
           </fieldset>
         </div>
       </form>
-      <button onClick={startQuiz} className='startButton'>Start the Quiz</button>
+      <button onClick={startQuiz} className='mainButton'>Start the Quiz</button>
     </div>
   )
 
-  
+
 
   const QuizPageMain = () => (
     <div>
+      <h3>Subject: {selectedCategory ? selectedCategory.name : 'Not selected'}</h3>
+      <h3>Difficultly level: {quizType === 'hard' ? "Kard" : "Not hard"}</h3>
       {quizData.map((item, index) => (
         <QuizBox 
           key={item.id}
@@ -220,14 +223,13 @@ export default function App() {
       ))}
       <div>
         <button 
-          className={showResults ? "ReHideResults" : (testaroo ? "AnswerBtn ShowResults" : "AnswerBtn HideResults")}
           onClick={() => {
             handleCheckAnswers()
             scrollToBottom()
           }}
+          className="mainButton"
           disabled={quizCompleted}
-        >
-          Check Answers
+        >Check Answers
         </button>
       </div>
       {showResults && (
@@ -241,7 +243,6 @@ export default function App() {
             scrollToTop()
           }}>Retry</button>
 
-          {/* NOTE: restartCurrentGame already calls fetchQuizData */}
           <button onClick={restartCurrentGame}>New Questions</button>
 
           <button onClick={() => {
