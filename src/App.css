@@ -69,9 +69,13 @@ fieldset {
 
 
 .radio-group {
-  display: inline-flex;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px; /* Adjust this value as needed */
+  margin: 0 auto;
   border-bottom: 1px solid hsl(211, 100%, 50%);
+  padding: 15px 0;
 }
 
 .radio-group input[type="radio"] {
@@ -87,7 +91,7 @@ fieldset {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   border-radius: 5px;
-  
+
 }
 
 .radio-group label:last-of-type {
