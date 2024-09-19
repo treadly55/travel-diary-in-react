@@ -60,18 +60,20 @@ fieldset {
 }
 
 .question {
-  margin-bottom: 30px;
-  margin-top: 10px;
-  background-color: #8a1212;
-  padding: 10px 20px;
-  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  background-color: transparent;
 }
 
-
+/* change begin */
 .radio-group {
-  display: inline-flex;
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px; /* Adjust this value as needed */
+  margin: 0 auto;
   border-bottom: 1px solid hsl(211, 100%, 50%);
+  padding: 15px 0;
 }
 
 .radio-group input[type="radio"] {
@@ -79,7 +81,10 @@ fieldset {
 }
 
 .radio-group label {
-  padding: 10px 30px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
   font-weight: 800;
   font-size: 1.1rem;
   color: #fff;
@@ -87,7 +92,8 @@ fieldset {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   border-radius: 5px;
-  
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .radio-group label:last-of-type {
@@ -96,7 +102,7 @@ fieldset {
 
 .radio-group input[type="radio"]:checked + label {
   background-color: #007bff;
-  color:#ebebeb;
+  color: #ebebeb;
 }
 
 .radio-group label:hover {
@@ -109,6 +115,10 @@ fieldset {
 
 .quizSelectForm {
   margin-top: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .startButton {
