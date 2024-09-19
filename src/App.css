@@ -94,6 +94,7 @@ fieldset {
   border-radius: 5px;
   text-align: center;
   box-sizing: border-box;
+  border: 1px solid #333;
 }
 
 .radio-group label:last-of-type {
@@ -106,7 +107,7 @@ fieldset {
 }
 
 .radio-group label:hover {
-  border: 2px solid green;
+  border: 1px solid green;
 }
 
 .radio-group input[type="radio"]:checked + label:hover {
