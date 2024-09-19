@@ -138,10 +138,8 @@ fieldset {
 }
 
 .mainButton:hover {
-  background-color: #007bff;
+  background-color: #257e28;
 }
-
-
 /* Header */
 
 .grid-container {
@@ -185,6 +183,20 @@ fieldset {
   gap: 40px;
 }
 
+.quiz-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.answer-box-options {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 400px;
+  justify-content: center;
+}
+
 .answer-option {
   border: 1px solid gray;
   border-radius: 4px;
@@ -192,11 +204,17 @@ fieldset {
   cursor: pointer;
   text-align: center;
   line-height: 2rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.answer-option:hover {
+  border: 1px solid green;
 }
 
 .selected {
-  border-color: green;
-  border-width: 1px;
+    background-color: #007bff;
+    color: #ebebeb;
+    font-weight: 600;
 }
 
 .quiz-finish-box {

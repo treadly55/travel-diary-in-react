@@ -26,7 +26,7 @@ return (
 <div className="quiz-box">
     <h3>Question {questionNumber}</h3>
     <p>{cleanedQuestion}</p>
-    <div className="answer-options">
+    <div className="answer-box-options">
     {cleanedOptions.map((option, index) => (
         <div
         key={index}
