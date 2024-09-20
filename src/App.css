@@ -136,6 +136,19 @@ fieldset {
     border: none;
     width: 290px;
 }
+.quizOverButton {
+    padding: 10px 20px;
+    font-weight: 800;
+    font-size: 1.22rem;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    background-color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 5px;
+    border: none;
+    width: 290px;
+}
 
 .mainButton:hover {
   background-color: #257e28;
@@ -165,8 +178,6 @@ fieldset {
 .right-col {
   align-items: center;
 }
-
-
 
 /* QuestionBox */
 
@@ -223,16 +234,21 @@ fieldset {
   padding: 5px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-.quiz-finish-box button {
-  margin-top: 8px; 
+.quiz-finish-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 
-.StopRetry {
+
+
+.stop-retry {
   display: none;
 }
 
-.NeedToRetry {
-  border: 4px solid green;
+.need-to-retry {
+  background-color: #7a837a;
 }

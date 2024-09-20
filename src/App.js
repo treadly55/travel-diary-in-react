@@ -8,7 +8,7 @@ import { nanoid } from 'nanoid'
 
 const categories = [
   { id: 9, name: "General Knowledge" },
-  { id: 10, name: "Books" },
+  { id: 10, name: "Literature" },
   { id: 11, name: "Film" },
   { id: 12, name: "Music" },
   { id: 14, name: "Television" },
@@ -207,7 +207,9 @@ export default function App() {
   const QuizPageMain = () => (
     <div>
       <h3>Subject: {selectedCategory ? selectedCategory.name : 'Not selected'}</h3>
-      <h3>Difficultly level: {quizType === 'hard' ? "Kard" : "Not hard"}</h3>
+
+      <h3>Difficulty level: {quizType === 'hard' ? "Hard" : quizType === 'medium' ? "Medium" : "Easy"}</h3>
+      
       {quizData.map((item, index) => (
         <QuizBox 
           key={item.id}
@@ -232,25 +234,35 @@ export default function App() {
         >Check Answers
         </button>
       </div>
+
+
       {showResults && (
         <div ref={bottomRef} className="quiz-finish-box">
           <h2>Quiz Completed!</h2>
           <p>You've answered all {quizData.length} questions.</p>
           <p>Your final score is: {score}</p>
           {score > 4 ? <p>You did great! Try some new questions</p> : <p>Didn't get them all, try again?</p>}
-          <button className={score > 4 ? "StopRetry" : "NeedToRetry"} onClick={() => {
-            resetQuiz()
-            scrollToTop()
-          }}>Retry</button>
+          <div className="quiz-finish-buttons">
+            <button className={`quizOverButton ${score > 4 ? "stop-retry" : "need-to-retry"}`} 
 
-          <button onClick={restartCurrentGame}>New Questions</button>
+              onClick={() => {
+              resetQuiz()
+              scrollToTop()
+            }}>Retry?</button>
 
-          <button onClick={() => {
-            setPage('landing')
-            resetQuiz()
-          }}>Restart Quizzmania</button>
+            <button className="quizOverButton" onClick={restartCurrentGame}>New {selectedCategory ? selectedCategory.name : ''} Questions</button>
+
+            <button className="quizOverButton spread" onClick={() => {
+              setPage('landing')
+              resetQuiz()
+            }}>Restart Quizzmania</button>
+          </div>
+
+
         </div>
       )}
+
+
     </div>
   )
 
