@@ -109,9 +109,11 @@ export default function App() {
 
   const startQuiz = () => {
     if (quizType && categoryId) {
-      setPage('main')
+      setTimeout(() => {
+        setPage('main')
+        scrollToTopFast()
+      }, 1000)
       fetchQuizData()
-      scrollToTopFast()
     } else {
       alert("Please select a difficulty and category to begin")
     }
@@ -139,15 +141,16 @@ export default function App() {
   }, [])
 
   const handleStartQuiz = () => {
+    
     setButtonText(
       <>
-        <FontAwesomeIcon icon={faSpinner} spin /> Loading...
+        Loading... <FontAwesomeIcon icon={faSpinner} spin /> 
       </>
     )
     setTimeout(() => {
-      startQuiz()
       setButtonText('Start the Quiz')
-    }, 2300)
+    }, 1200)
+    startQuiz()
   }
 
 
@@ -270,7 +273,7 @@ export default function App() {
               onClick={() => {
               resetQuiz()
               scrollToTop()
-            }}>Retry?</button>
+            }}>Retry quiz?</button>
 
             <button className="quizOverButton small" onClick={restartCurrentGame}>New {selectedCategory ? selectedCategory.name : ''} Questions</button>
 
@@ -280,8 +283,6 @@ export default function App() {
               scrollToTopFast()
             }}>Restart Quizzmania</button>
           </div>
-
-
         </div>
       )}
 
