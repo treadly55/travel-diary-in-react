@@ -50,7 +50,6 @@ main {
 
 /* Form */
 
-
 .sub-title {
   margin-top: 20px;
 }
@@ -150,6 +149,11 @@ fieldset {
     width: 290px;
 }
 
+.small {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .mainButton:hover {
   background-color: #257e28;
 }
@@ -242,8 +246,6 @@ fieldset {
   grid-template-columns: 1fr;
   gap: 10px;
 }
-
-
 
 .stop-retry {
   display: none;

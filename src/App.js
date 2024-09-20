@@ -3,7 +3,8 @@ import './App.css';
 import Header from './Header.js'
 import QuizBox from './Quiz.js'
 import { nanoid } from 'nanoid'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'; 
 
 
 const categories = [
@@ -24,10 +25,12 @@ export default function App() {
   const [showResults, setShowResults] = useState(false)
   const [quizType, setQuizType] = useState(null)
   const [categoryId, setCategoryId] = useState(null)
+  const [buttonText, setButtonText] = useState('Start the Quiz')
   const scoreCalculatedRef = useRef(false)
   const bottomRef = useRef(null)
   const allQuestionsAnswered = quizData.every(item => selectedAnswers[item.id])
   const showAnswerButtonCondStyle = quizData.length > 0 && quizData.every(item => selectedAnswers[item.id])
+
 
   // REMOVED: useEffect hook that was calling fetchQuizData
 
@@ -108,6 +111,7 @@ export default function App() {
     if (quizType && categoryId) {
       setPage('main')
       fetchQuizData()
+      scrollToTopFast()
     } else {
       alert("Please select a difficulty and category to begin")
     }
@@ -120,12 +124,32 @@ export default function App() {
       behavior: 'smooth'
     });
   }, []);
+  
+  const scrollToTopFast = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto'
+    });
+  }, []);
 
   const scrollToBottom = useCallback(() => {
     if(bottomRef.current) {
       bottomRef.current.scrollIntoView({behavior: 'smooth'})
     }
   }, [])
+
+  const handleStartQuiz = () => {
+    setButtonText(
+      <>
+        <FontAwesomeIcon icon={faSpinner} spin /> Loading...
+      </>
+    )
+    setTimeout(() => {
+      startQuiz()
+      setButtonText('Start the Quiz')
+    }, 2300)
+  }
+
 
   useEffect(() => {
     if(showResults) {
@@ -198,7 +222,7 @@ export default function App() {
           </fieldset>
         </div>
       </form>
-      <button onClick={startQuiz} className='mainButton'>Start the Quiz</button>
+      <button onClick={handleStartQuiz} className='mainButton'>{buttonText}</button>
     </div>
   )
 
@@ -239,22 +263,21 @@ export default function App() {
       {showResults && (
         <div ref={bottomRef} className="quiz-finish-box">
           <h2>Quiz Completed!</h2>
-          <p>You've answered all {quizData.length} questions.</p>
-          <p>Your final score is: {score}</p>
-          {score > 4 ? <p>You did great! Try some new questions</p> : <p>Didn't get them all, try again?</p>}
+          <p>Your final score is: {score}/{quizData.length}</p>
+          {score > 4 ? <p>Perfect score! 💯💯💯</p> : <p>Try again to get a perfect score</p>}
           <div className="quiz-finish-buttons">
             <button className={`quizOverButton ${score > 4 ? "stop-retry" : "need-to-retry"}`} 
-
               onClick={() => {
               resetQuiz()
               scrollToTop()
             }}>Retry?</button>
 
-            <button className="quizOverButton" onClick={restartCurrentGame}>New {selectedCategory ? selectedCategory.name : ''} Questions</button>
+            <button className="quizOverButton small" onClick={restartCurrentGame}>New {selectedCategory ? selectedCategory.name : ''} Questions</button>
 
-            <button className="quizOverButton spread" onClick={() => {
+            <button className="quizOverButton" onClick={() => {
               setPage('landing')
               resetQuiz()
+              scrollToTopFast()
             }}>Restart Quizzmania</button>
           </div>
 
