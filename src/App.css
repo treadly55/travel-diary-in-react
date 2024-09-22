@@ -10,15 +10,16 @@ body{
 
 main {
   text-align: center;
-  border: 1px solid red;
+  border: none;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
   max-width: 670px;
+  background-color: #1a1a1a;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-
 
 /* Header  */
 .underline {
@@ -27,12 +28,13 @@ main {
 }
 
 .MegaHeader {
-  font-size: 6rem;
+  font-size: calc(1.4rem + 2vw);
   font-weight: 800;
   letter-spacing: 0;
   line-height: 0.88em;
   padding: 0;
   margin: 0;
+  margin-bottom: 50px;
 }
 
 .MegaIcon {
@@ -46,12 +48,13 @@ main {
   font-size: 0.88rem;
   font-weight: 800;
   border-bottom: 1px solid #515050;
+
 }
 
 /* Form */
 
 .sub-title {
-  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 fieldset {
@@ -135,7 +138,14 @@ fieldset {
     border: none;
     width: 290px;
 }
+
+.mainButtonclicked {
+  background-color: #257e28;
+}
+
+
 .quizOverButton {
+    border: 1px solid #333;
     padding: 10px 20px;
     font-weight: 800;
     font-size: 1.22rem;
@@ -145,14 +155,47 @@ fieldset {
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
     border-radius: 5px;
-    border: none;
     width: 290px;
+}
+
+.quizOverButton:last-child {
+  margin-bottom: 100px;
+}
+
+.quizOverButton:hover {
+  border: 1px solid green;
+}
+
+.game-status {
+  color: #92cc9d;
 }
 
 .small {
   font-size: 1rem;
   font-weight: 600;
 }
+
+.quiz-category-header {
+  font-size: 1.1rem;
+  font-weight: 400;
+  color:#29ab0c;
+}
+
+.quiz-question {
+  margin: 0;
+  font-size: 1.3rem;
+  padding-bottom: 20px;
+}
+
+.quiz-question-header {
+  margin-top: 70px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #bdbdbd;
+}
+
+
+
 
 .mainButton:hover {
   background-color: #257e28;
@@ -207,7 +250,7 @@ fieldset {
 .answer-box-options {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 15px;
   width: 400px;
   justify-content: center;
 }
@@ -233,12 +276,14 @@ fieldset {
 }
 
 .quiz-finish-box {
-  border: 1px solid purple; 
-  margin: 50px 0;
-  padding: 5px;
+  border: 1px solid #007bff;
+  background-color: #262626;
+  margin: 50px 15px;
+  padding: 15px 0 5px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 10px;
 }
 
 .quiz-finish-buttons {
@@ -252,5 +297,10 @@ fieldset {
 }
 
 .need-to-retry {
-  background-color: #7a837a;
+  margin-bottom: 40px;
+}
+
+.score-reveal {
+  font-size: 1.6rem;
+  font-weight: 800;
 }

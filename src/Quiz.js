@@ -24,8 +24,8 @@ const cleanedOptions = options.map(option => decodeIfNeeded(option))
 
 return (
 <div className="quiz-box">
-    <h3>Question {questionNumber}</h3>
-    <p>{cleanedQuestion}</p>
+    <h3 className='quiz-question-header'>Question {questionNumber}</h3>
+    <p className='quiz-question'>{cleanedQuestion}</p>
     <div className="answer-box-options">
     {cleanedOptions.map((option, index) => (
         <div

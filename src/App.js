@@ -26,13 +26,14 @@ export default function App() {
   const [quizType, setQuizType] = useState(null)
   const [categoryId, setCategoryId] = useState(null)
   const [buttonText, setButtonText] = useState('Start the Quiz')
+  const [checkBtnHighlight, setCheckBtnHighlight] = useState(false)
+
+
   const scoreCalculatedRef = useRef(false)
   const bottomRef = useRef(null)
   const allQuestionsAnswered = quizData.every(item => selectedAnswers[item.id])
   const showAnswerButtonCondStyle = quizData.length > 0 && quizData.every(item => selectedAnswers[item.id])
 
-
-  // REMOVED: useEffect hook that was calling fetchQuizData
 
   const fetchQuizData = useCallback(async () => {
     console.log('calling API')
@@ -69,7 +70,6 @@ export default function App() {
 
   const calculateScore = useCallback(() => {
     if (scoreCalculatedRef.current) return;
-
     let newScore = 0;
     quizData.forEach(item => {
       if (selectedAnswers[item.id] === item.answer) {
@@ -99,11 +99,22 @@ export default function App() {
     scoreCalculatedRef.current = false
     setQuizType(null)
     setCategoryId(null)
+    setCheckBtnHighlight(false)
+  }
+
+  const quickFixResetQuiz = () => {
+    setSelectedAnswers({})
+    setScore(0)
+    setQuizCompleted(false)
+    setShowResults(false)
+    scoreCalculatedRef.current = false
+    setQuizType(null)
+    setCheckBtnHighlight(false)
   }
 
   const restartCurrentGame = () => {
     resetQuiz()
-    fetchQuizData() 
+    fetchQuizData()
     scrollToTop()
   }
 
@@ -141,7 +152,6 @@ export default function App() {
   }, [])
 
   const handleStartQuiz = () => {
-    
     setButtonText(
       <>
         Loading... <FontAwesomeIcon icon={faSpinner} spin /> 
@@ -153,14 +163,17 @@ export default function App() {
     startQuiz()
   }
 
-
   useEffect(() => {
     if(showResults) {
       scrollToBottom()
     }
   }, [showResults, scrollToBottom])
 
+
   const selectedCategory = categories.find(category => category.id === categoryId);
+  const selectedCategorySaved = "fixed bleh"
+
+
 
   const QuizPageLanding = () => (  
     <div>
@@ -225,18 +238,22 @@ export default function App() {
           </fieldset>
         </div>
       </form>
-      <button onClick={handleStartQuiz} className='mainButton'>{buttonText}</button>
+      <button 
+        onClick={() => {
+        handleStartQuiz()
+        setCheckBtnHighlight(true)
+      }}
+      className={`mainButton ${checkBtnHighlight ? 'mainButtonclicked' : ''}`} 
+      >
+      {buttonText}
+      </button>
     </div>
   )
 
-
-
   const QuizPageMain = () => (
     <div>
-      <h3>Subject: {selectedCategory ? selectedCategory.name : 'Not selected'}</h3>
-
-      <h3>Difficulty level: {quizType === 'hard' ? "Hard" : quizType === 'medium' ? "Medium" : "Easy"}</h3>
-      
+      <h3 className='quiz-category-header'>You are playing on <span className='game-status'>{quizType === 'hard' ? "Hard" : quizType === 'medium' ? "Medium" : "Easy"}</span> difficulty in the <span className='game-status'>{selectedCategory ? selectedCategory.name : selectedCategorySaved}</span> category</h3>
+            
       {quizData.map((item, index) => (
         <QuizBox 
           key={item.id}
@@ -256,28 +273,28 @@ export default function App() {
             handleCheckAnswers()
             scrollToBottom()
           }}
-          className="mainButton"
+          className='mainButton'
           disabled={quizCompleted}
         >Check Answers
         </button>
       </div>
 
-
       {showResults && (
         <div ref={bottomRef} className="quiz-finish-box">
           <h2>Quiz Completed!</h2>
-          <p>Your final score is: {score}/{quizData.length}</p>
-          {score > 4 ? <p>Perfect score! 💯💯💯</p> : <p>Try again to get a perfect score</p>}
+          <p className='score-reveal'>Your final score is: {score}/{quizData.length}</p>
+          {score > 4 ? <p>Perfect score! 💯💯💯</p> : <p>Try again to get a perfect score?</p>}
           <div className="quiz-finish-buttons">
+            
             <button className={`quizOverButton ${score > 4 ? "stop-retry" : "need-to-retry"}`} 
               onClick={() => {
-              resetQuiz()
+              quickFixResetQuiz()
               scrollToTop()
-            }}>Retry quiz?</button>
+            }}>Retry quiz</button>
 
             <button className="quizOverButton small" onClick={restartCurrentGame}>New {selectedCategory ? selectedCategory.name : ''} Questions</button>
 
-            <button className="quizOverButton" onClick={() => {
+            <button className="quizOverButton small" onClick={() => {
               setPage('landing')
               resetQuiz()
               scrollToTopFast()
@@ -297,6 +314,7 @@ export default function App() {
         onBackClick={() => {
           resetQuiz()
           setPage('landing')
+          setCheckBtnHighlight(false)
         }}
       />
       {page === 'landing' && <QuizPageLanding />}
